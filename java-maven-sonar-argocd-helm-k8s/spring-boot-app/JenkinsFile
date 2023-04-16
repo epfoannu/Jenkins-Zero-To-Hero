@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'openjdk:11'
+      image 'maven'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "epfoannu/epfoannu/ultimate-cicd:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "epfoannu/epfoannu:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-creds')
       }
